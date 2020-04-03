@@ -8,6 +8,7 @@
 
 #include <string>
 #include <iostream>
+#include <vector>
 
 namespace TW::WalletConsole {
 

@@ -7,7 +7,6 @@
 #include "../Data.h"
 #include "ReadData.h"
 
-
 TW::Data TW::readBytes(const TW::Data &from, int max, int initial_pos) {
     if (from.size() - initial_pos < max) {
         throw std::invalid_argument("Data::Cannot read enough bytes!");

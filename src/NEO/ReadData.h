@@ -7,6 +7,7 @@
 #pragma once
 
 #include <cctype>
+#include <climits>
 
 #include "../Data.h"
 #include "../BinaryCoding.h"

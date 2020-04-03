@@ -3,6 +3,8 @@
 # Fail if any commands fails
 set -e
 
+export CPLUS_INCLUDE_PATH=/usr/include/c++/7.5.0:/usr/include/x86_64-linux-gnu/c++/7.5.0
+
 echo "#### Initializing... ####"
 tools/install-dependencies
 
@@ -10,7 +12,7 @@ echo "#### Generating files... ####"
 tools/generate-files
 
 echo "#### Building... ####"
-cmake -H. -Bbuild -DCMAKE_BUILD_TYPE=Debug
+cmake . -Bbuild -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
 make -Cbuild tests TrezorCryptoTests
 
 if [ -x "$(command -v clang-tidy)" ]; then
@@ -25,3 +27,5 @@ build/trezor-crypto/tests/TrezorCryptoTests
 ROOT="`dirname \"$0\"`"
 TESTS_ROOT="`(cd \"$ROOT/tests\" && pwd)`"
 build/tests/tests "$TESTS_ROOT"
+
+make -Cbuild walletconsole
