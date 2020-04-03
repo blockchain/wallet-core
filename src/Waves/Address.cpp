@@ -13,6 +13,7 @@
 #include <HexCoding.h>
 #include <cassert>
 #include <stdexcept>
+#include <cstring>
 
 using namespace TW;
 using namespace TW::Waves;

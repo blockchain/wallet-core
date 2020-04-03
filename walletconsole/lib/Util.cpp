@@ -14,6 +14,7 @@
 #include <vector>
 #include <cassert>
 #include <fstream>
+#include <algorithm>
 
 namespace TW::WalletConsole {
 

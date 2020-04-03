@@ -38,16 +38,19 @@ struct TWStoredKey *_Nonnull createDefaultStoredKey() {
 }
 
 TEST(TWStoredKey, loadPBKDF2Key) {
-    const auto filename = WRAPS(TWStringCreateWithUTF8Bytes((TESTS_ROOT + "/Keystore/Data/pbkdf2.json").c_str()));
-    const auto key = TWStoredKeyLoad(filename.get());
+    const auto pbkdf2keyPath = string(TESTS_ROOT) + "/Keystore/Data/pbkdf2.json";
+    //const auto filename = WRAPS(TWStringCreateWithUTF8Bytes(pbkdf2keyPath.c_str()));
+    const auto key = TWStoredKeyLoad(&pbkdf2keyPath);
+    ASSERT_NE(key, nullptr);
     const auto keyId = WRAPS(TWStoredKeyIdentifier(key));
     EXPECT_EQ(string(TWStringUTF8Bytes(keyId.get())), "3198bc9c-6672-5ab3-d995-4942343ae5b6");
     TWStoredKeyDelete(key);
 }
 
 TEST(TWStoredKey, loadNonexistent) {
-    const auto filenameInvalid = WRAPS(TWStringCreateWithUTF8Bytes((TESTS_ROOT + "_NO_/_SUCH_/_FILE_").c_str()));
-    EXPECT_EQ(TWStoredKeyLoad(filenameInvalid.get()), nullptr);
+    const string nonexistentPath = string(TESTS_ROOT) + "_NO_/_SUCH_/_FILE_";
+    //const auto filenameInvalid = WRAPS(TWStringCreateWithUTF8Bytes(nonexistentPath.c_str()));
+    EXPECT_EQ(TWStoredKeyLoad(&nonexistentPath), nullptr);
 }
 
 TEST(TWStoredKey, createWallet) {
@@ -171,9 +174,9 @@ TEST(TWStoredKey, importJsonInvalid) {
 }
 
 TEST(TWStoredKey, fixAddresses) {
-    const auto password = "password";
+    const string password = "password";
     const auto key = createAStoredKey(TWCoinTypeBitcoin, password);
-    EXPECT_TRUE(TWStoredKeyFixAddresses(key, WRAPS(TWStringCreateWithUTF8Bytes(password)).get()));
+    EXPECT_TRUE(TWStoredKeyFixAddresses(key, &password));
     TWStoredKeyDelete(key);
 }
 
@@ -192,9 +195,10 @@ TEST(TWStoredKey, importInvalidKey) {
 }
 
 TEST(TWStoredKey, removeAccountForCoin) {
-    auto password = "password";
-    auto key = TWStoredKeyCreate("Test KeyStore", password);
-    auto wallet = TWStoredKeyWallet(key, password);
+    const string password = "password";
+    const string name = "Test KeyStore";
+    auto key = TWStoredKeyCreate(&name, &password);
+    auto wallet = TWStoredKeyWallet(key, &password);
     
     ASSERT_NE(TWStoredKeyAccountForCoin(key, TWCoinTypeEthereum, wallet), nullptr);
     ASSERT_NE(TWStoredKeyAccountForCoin(key, TWCoinTypeBitcoin, wallet), nullptr);

@@ -18,6 +18,7 @@
 #include <TrustWalletCore/TWHRP.h>
 
 #include <array>
+#include <cstring>
 
 using namespace TW;
 

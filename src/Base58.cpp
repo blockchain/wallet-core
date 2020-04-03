@@ -11,6 +11,7 @@
 
 #include <algorithm>
 #include <cctype>
+#include <cassert>
 
 using namespace TW;
 
@@ -77,7 +78,7 @@ Data Base58::decode(const char* begin, const char* end) const {
     auto it = begin;
 
     // Skip leading spaces.
-    it = std::find_if_not(it, end, std::isspace);
+    it = std::find_if_not(it, end, [](unsigned char ch) -> bool { return std::isspace(ch); });
 
     // Skip and count leading zeros.
     std::size_t zeroes = 0;
@@ -118,7 +119,7 @@ Data Base58::decode(const char* begin, const char* end) const {
     }
 
     // Skip trailing spaces.
-    it = std::find_if_not(it, end, std::isspace);
+    it = std::find_if_not(it, end, [](unsigned char ch) -> bool { return std::isspace(ch); });
     if (it != end) {
         // Extra charaters at the end
         return {};

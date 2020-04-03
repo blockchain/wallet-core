@@ -9,6 +9,8 @@
 #include "../Base32.h"
 #include "../Data.h"
 
+#include <cstring>
+
 using namespace TW;
 using namespace TW::Filecoin;
 
