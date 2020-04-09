@@ -28,6 +28,10 @@ inline Data data(const byte* data, size_t size) {
     return std::vector<byte>(data, data + size);
 }
 
+inline Data data(byte b) {
+    return std::vector<byte>({b});
+}
+
 inline void append(Data& data, const Data& suffix) {
     data.insert(data.end(), suffix.begin(), suffix.end());
 }
