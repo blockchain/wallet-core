@@ -9,35 +9,67 @@
 #include "../Data.h"
 #include "../PublicKey.h"
 
+#include "Address.h"
+#include "SegwitAddress.h"
+
 #include <string>
 
 namespace TW::Bitcoin {
 
-class DlgdAddress {
+class DgldAddress : public Address {
   public:
-    // TODO: Complete class definition
 
-    /// Determines whether a string makes a valid address.
-    static bool isValid(const std::string& string);
+    static const byte ADDRTYPE_P2PKH = 38;
+    static const byte ADDRTYPE_P2SH = 97;
+    
+    explicit DgldAddress(const std::string& string) : Address(string) {}
+    /// Initializes a  address with a collection of bytes.
+    explicit DgldAddress(const Data& data) : Address(data) {}
 
-    /// Initializes a DigitalGold address with a string representation.
-    explicit DlgdAddress(const std::string& string);
+    /// Initializes a  address with a public key and a prefix.
+    DgldAddress(const PublicKey& publicKey, byte prefix) : Address(publicKey, prefix) {}
 
-    /// Initializes a DigitalGold address with a public key.
-    explicit DlgdAddress(const PublicKey& publicKey);
+    DgldAddress(const PublicKey& publicKey) : Address(publicKey, ADDRTYPE_P2PKH) {}
 
-    /// Returns a string representation of the address.
-    std::string string() const;
+    static bool isValid(const std::string& string) {
+        return Address::isValid(string, {TW::data(ADDRTYPE_P2PKH), TW::data(ADDRTYPE_P2SH)});
+    }
 };
 
-inline bool operator==(const DlgdAddress& lhs, const DlgdAddress& rhs) {
-    // TODO: Complete equality operator
-    return true;
+
+inline bool operator==(const DgldAddress& lhs, const DgldAddress& rhs) {
+    return lhs.string() == rhs.string();
 }
+
+
+/*
+
+class DgldSegwitAddress : public SegwitAddress {
+  public:
+
+    DgldSegwitAddress(std::string hrp, int witver, std::vector<uint8_t> witprog) : SegwitAddress(hrp, witver, witprog) {}
+
+    DgldSegwitAddress(const PublicKey& publicKey, int witver, std::string hrp) : SegwitAddress(publicKey, witver, hrp) {}
+};
+
+
+inline bool operator==(const DgldSegwitAddress& lhs, const DgldSegwitAddress& rhs) {
+    // TODO: Complete equality operator
+    return (&lhs) == (&rhs);
+}
+
+*/
 
 } // namespace TW::Bitcoin
 
 /// Wrapper for C interface.
 struct TWDigitalGoldAddress {
-    TW::Bitcoin::DlgdAddress impl;
+    TW::Bitcoin::DgldAddress impl;
 };
+
+/*
+struct TWDigitalGoldSegwitAddress {
+    TW::Bitcoin::DgldSegwitAddress impl;
+};
+*/
+

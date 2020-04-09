@@ -26,10 +26,13 @@ class Base58Address {
     std::array<byte, size> bytes;
 
     /// Determines whether a collection of bytes makes a valid  address.
-    template <typename T>
-    static bool isValid(const T& data) {
+    static bool isValid(const Data& data) {
         return data.size() == size;
     }
+    /*template <typename T>
+    static bool isValid(const T& data) {
+        return data.size() == size;
+    }*/
 
     /// Determines whether a string makes a valid address.
     static bool isValid(const std::string& string) {
