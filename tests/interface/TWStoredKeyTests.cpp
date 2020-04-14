@@ -40,19 +40,16 @@ struct TWStoredKey *_Nonnull createDefaultStoredKey() {
 }
 
 TEST(TWStoredKey, loadPBKDF2Key) {
-    const auto pbkdf2keyPath = string(TESTS_ROOT) + "/Keystore/Data/pbkdf2.json";
-    //const auto filename = WRAPS(TWStringCreateWithUTF8Bytes(pbkdf2keyPath.c_str()));
-    const auto key = TWStoredKeyLoad(&pbkdf2keyPath);
-    ASSERT_NE(key, nullptr);
+    const auto filename = WRAPS(TWStringCreateWithUTF8Bytes((TESTS_ROOT + "/Keystore/Data/pbkdf2.json").c_str()));
+    const auto key = TWStoredKeyLoad(filename.get());
     const auto keyId = WRAPS(TWStoredKeyIdentifier(key));
     EXPECT_EQ(string(TWStringUTF8Bytes(keyId.get())), "3198bc9c-6672-5ab3-d995-4942343ae5b6");
     TWStoredKeyDelete(key);
 }
 
 TEST(TWStoredKey, loadNonexistent) {
-    const string nonexistentPath = string(TESTS_ROOT) + "_NO_/_SUCH_/_FILE_";
-    //const auto filenameInvalid = WRAPS(TWStringCreateWithUTF8Bytes(nonexistentPath.c_str()));
-    EXPECT_EQ(TWStoredKeyLoad(&nonexistentPath), nullptr);
+    const auto filenameInvalid = WRAPS(TWStringCreateWithUTF8Bytes((TESTS_ROOT + "_NO_/_SUCH_/_FILE_").c_str()));
+    EXPECT_EQ(TWStoredKeyLoad(filenameInvalid.get()), nullptr);
 }
 
 TEST(TWStoredKey, createWallet) {
@@ -181,18 +178,11 @@ TEST(TWStoredKey, importJsonInvalid) {
 }
 
 TEST(TWStoredKey, fixAddresses) {
-    const string password = "password";
-    const auto key = createAStoredKey(TWCoinTypeBitcoin, password);
-    EXPECT_TRUE(TWStoredKeyFixAddresses(key, &password));
-
-/*
     const auto passwordString = WRAPS(TWStringCreateWithUTF8Bytes("password"));
     const auto password = WRAPD(TWDataCreateWithBytes(reinterpret_cast<const uint8_t *>(TWStringUTF8Bytes(passwordString.get())), TWStringSize(passwordString.get())));
     
     const auto key = createAStoredKey(TWCoinTypeBitcoin, password.get());
     EXPECT_TRUE(TWStoredKeyFixAddresses(key, password.get()));
-*/
-
     TWStoredKeyDelete(key);
 }
 
@@ -212,18 +202,13 @@ TEST(TWStoredKey, importInvalidKey) {
 }
 
 TEST(TWStoredKey, removeAccountForCoin) {
-    const string password = "password";
-    const string name = "Test KeyStore";
-    auto key = TWStoredKeyCreate(&name, &password);
-    auto wallet = TWStoredKeyWallet(key, &password);
+    const auto name = WRAPS(TWStringCreateWithUTF8Bytes("Test Keystore"));
 
-/*
     const auto passwordString = WRAPS(TWStringCreateWithUTF8Bytes("password"));
     const auto password = WRAPD(TWDataCreateWithBytes(reinterpret_cast<const uint8_t *>(TWStringUTF8Bytes(passwordString.get())), TWStringSize(passwordString.get())));
     
-    auto key = TWStoredKeyCreate("Test KeyStore", password.get());
+    auto key = TWStoredKeyCreate(name.get(), password.get());
     auto wallet = TWStoredKeyWallet(key, password.get());
-*/
     
     ASSERT_NE(TWStoredKeyAccountForCoin(key, TWCoinTypeEthereum, wallet), nullptr);
     ASSERT_NE(TWStoredKeyAccountForCoin(key, TWCoinTypeBitcoin, wallet), nullptr);
