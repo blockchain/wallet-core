@@ -42,34 +42,10 @@ inline bool operator==(const DgldAddress& lhs, const DgldAddress& rhs) {
 }
 
 
-/*
-
-class DgldSegwitAddress : public SegwitAddress {
-  public:
-
-    DgldSegwitAddress(std::string hrp, int witver, std::vector<uint8_t> witprog) : SegwitAddress(hrp, witver, witprog) {}
-
-    DgldSegwitAddress(const PublicKey& publicKey, int witver, std::string hrp) : SegwitAddress(publicKey, witver, hrp) {}
-};
-
-
-inline bool operator==(const DgldSegwitAddress& lhs, const DgldSegwitAddress& rhs) {
-    // TODO: Complete equality operator
-    return (&lhs) == (&rhs);
-}
-
-*/
-
 } // namespace TW::Bitcoin
 
 /// Wrapper for C interface.
 struct TWDigitalGoldAddress {
     TW::Bitcoin::DgldAddress impl;
 };
-
-/*
-struct TWDigitalGoldSegwitAddress {
-    TW::Bitcoin::DgldSegwitAddress impl;
-};
-*/
 

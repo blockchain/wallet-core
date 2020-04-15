@@ -9,6 +9,7 @@
 #include "Address.h"
 #include "CashAddress.h"
 #include "SegwitAddress.h"
+#include "DgldAddress.h"
 #include "Signer.h"
 
 using namespace TW::Bitcoin;
@@ -28,6 +29,9 @@ bool Entry::validateAddress(TWCoinType coin, const string& address, TW::byte p2p
         case TWCoinTypeBitcoinCash:
             return CashAddress::isValid(address)
                 || Address::isValid(address, {{p2pkh}, {p2sh}});
+
+        case TWCoinTypeDigitalGold:
+            return DgldAddress::isValid(address);
 
         case TWCoinTypeDash:
         case TWCoinTypeDogecoin:
@@ -64,6 +68,9 @@ string Entry::deriveAddress(TWCoinType coin, const PublicKey& publicKey, TW::byt
 
         case TWCoinTypeBitcoinCash:
             return CashAddress(publicKey).string();
+
+        case TWCoinTypeDigitalGold:
+            return DgldAddress(publicKey).string();
 
         case TWCoinTypeDash:
         case TWCoinTypeDogecoin:
