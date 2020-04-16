@@ -5,7 +5,7 @@
 // file LICENSE at the root of the source code distribution tree.
 
 #include "Bitcoin/Signer.h"
-#include "Bitcoin/DgldAddress.h"
+#include "Bitcoin/Address.h"
 #include "HexCoding.h"
 #include "PrivateKey.h"
 #include "PublicKey.h"
