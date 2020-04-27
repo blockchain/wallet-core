@@ -27,7 +27,6 @@ RUN apt-get update \
         ninja-build \
         pkg-config \
         ruby-full \
-        default-jdk \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Install clang
@@ -82,5 +81,7 @@ RUN cd /wallet-core \
     && ./tools/generate-files \
     && cmake -H. -Bbuild -DCMAKE_BUILD_TYPE=Debug \
     && make -Cbuild -j12
+
+RUN apt-get update && apt-get install -y default-jdk
 
 CMD ["/bin/bash"]
