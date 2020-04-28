@@ -3,8 +3,6 @@
 # Fail if any commands fails
 set -e
 
-export CPLUS_INCLUDE_PATH=/usr/include/c++/7.5.0:/usr/include/x86_64-linux-gnu/c++/7.5.0
-
 echo "#### Initializing... ####"
 tools/install-dependencies
 
