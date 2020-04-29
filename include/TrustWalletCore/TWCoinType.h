@@ -79,6 +79,7 @@ enum TWCoinType {
     TWCoinTypeKusama = 434,
     TWCoinTypePolkadot = 354,
     TWCoinTypeFilecoin = 461,
+    TWCoinTypeElrond = 508,
     TWCoinTypeDigitalGold = 452,
 };
 
