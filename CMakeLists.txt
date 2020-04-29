@@ -97,11 +97,11 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/swift/cpp.xcconfig.in ${CMAKE_CURRENT
 if(ANDROID)
     # Workaround: <https://developercommunity.visualstudio.com/content/problem/171290/android-ndk-include-paths-are-incorrect.html>
     include_directories(BEFORE SYSTEM
-        /home/bartek/Android/Sdk/ndk/21.1.6352462/sources/android/support/include
-        /home/bartek/Android/Sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/9.0.8/include # stddef.h
-        /home/bartek/Android/Sdk/ndk/21.1.6352462/sysroot/usr/include
-        /home/bartek/Android/Sdk/ndk/21.1.6352462/sources/cxx-stl/llvm-libc++abi/include
-        /home/bartek/Android/Sdk/ndk/21.1.6352462/sources/cxx-stl/llvm-libc++/include
+        $ENV{NDK_DIR}/sources/android/support/include
+        $ENV{NDK_DIR}/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/9.0.8/include # stddef.h
+        $ENV{NDK_DIR}/sysroot/usr/include
+        $ENV{NDK_DIR}/sources/cxx-stl/llvm-libc++abi/include
+        $ENV{NDK_DIR}/sources/cxx-stl/llvm-libc++/include
     )
 else()
     include_directories(BEFORE SYSTEM
