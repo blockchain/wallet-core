@@ -3,7 +3,7 @@ apply plugin: 'maven-publish'
 group='com.github.trustwallet'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 28
 
     defaultConfig {
         minSdkVersion 23
@@ -33,11 +33,10 @@ android {
             path "../../CMakeLists.txt"
         }
     }
-    buildToolsVersion = '29.0.3'
 }
 
 dependencies {
-    implementation 'io.grpc:grpc-protobuf:1.29.0'
+    implementation 'io.grpc:grpc-protobuf:1.24.2'
 }
 
 apply from: 'maven-push.gradle'
