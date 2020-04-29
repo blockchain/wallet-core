@@ -5,6 +5,8 @@ apply plugin: 'kotlin-android'
 android {
     compileSdkVersion 29
     buildToolsVersion '29.0.3'
+    ndkVersion '21.1.6352462'
+
     defaultConfig {
         applicationId "com.trustwallet.core.app"
         minSdkVersion 23
@@ -24,7 +26,7 @@ android {
 dependencies {
     implementation project(':trustwalletcore')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0-beta01'
 
     // Tests
     testImplementation 'junit:junit:4.13'
@@ -36,7 +38,22 @@ dependencies {
     androidTestImplementation 'android.arch.core:core-testing:1.1.1'
 
     implementation 'io.grpc:grpc-protobuf:1.29.0'
+
+    debugImplementation 'com.github.DonaldDu:FixUnhandledEvent:1.0'
 }
+
 repositories {
     mavenCentral()
+    maven { url "https://jitpack.io" }
+}
+
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == "com.android.support") {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion "${targetSdk}.+"
+            }
+        }
+    }
 }
