@@ -192,9 +192,11 @@ TEST(TWStoredKey, importInvalidKey) {
 }
 
 TEST(TWStoredKey, removeAccountForCoin) {
-    auto password = "password";
-    auto key = TWStoredKeyCreate("Test KeyStore", password);
-    auto wallet = TWStoredKeyWallet(key, password);
+    const auto name = WRAPS(TWStringCreateWithUTF8Bytes("Test Keystore"));
+    const auto password = WRAPS(TWStringCreateWithUTF8Bytes("password"));
+    
+    auto key = TWStoredKeyCreate(name.get(), password.get());
+    auto wallet = TWStoredKeyWallet(key, password.get());
     
     ASSERT_NE(TWStoredKeyAccountForCoin(key, TWCoinTypeEthereum, wallet), nullptr);
     ASSERT_NE(TWStoredKeyAccountForCoin(key, TWCoinTypeBitcoin, wallet), nullptr);
