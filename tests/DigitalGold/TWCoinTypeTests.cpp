@@ -13,7 +13,20 @@
 #include <gtest/gtest.h>
 
 
-TEST(TWDigitalGoldCoinType, TWCoinType) {
+TEST(TWDigitalGoldCoinType, TWCoinTypeConfigurationGetDecimals) {
+    ASSERT_EQ(TWCoinTypeConfigurationGetDecimals(TWCoinTypeDigitalGold), 8);
+}
+
+TEST(TWDigitalGoldCoinType, TWCoinTypeBlockchain) {
+    ASSERT_EQ(TWBlockchainBitcoin, TWCoinTypeBlockchain(TWCoinTypeDigitalGold));
+}
+
+TEST(TWDigitalGoldCoinType, TWCoinTypeXXXPrefix) {
+    ASSERT_EQ(38, TWCoinTypeP2pkhPrefix(TWCoinTypeDigitalGold));
+    ASSERT_EQ(97, TWCoinTypeP2shPrefix(TWCoinTypeDigitalGold));
+}
+
+TEST(TWDigitalGoldCoinType, TWCoinTypeConfigurationXXX) {
     auto symbol = WRAPS(TWCoinTypeConfigurationGetSymbol(TWCoinTypeDigitalGold));
     auto txId = TWStringCreateWithUTF8Bytes("68e203d1837aad907f4c09b22835e78304a7ae5c4268d0c2487958e3a1858b6e");
     auto txUrl = WRAPS(TWCoinTypeConfigurationGetTransactionURL(TWCoinTypeDigitalGold, txId));
@@ -22,13 +35,9 @@ TEST(TWDigitalGoldCoinType, TWCoinType) {
     auto id = WRAPS(TWCoinTypeConfigurationGetID(TWCoinTypeDigitalGold));
     auto name = WRAPS(TWCoinTypeConfigurationGetName(TWCoinTypeDigitalGold));
 
-    ASSERT_EQ(TWCoinTypeConfigurationGetDecimals(TWCoinTypeDigitalGold), 8);
-    ASSERT_EQ(TWBlockchainBitcoin, TWCoinTypeBlockchain(TWCoinTypeDigitalGold));
-    ASSERT_EQ(0x61, TWCoinTypeP2shPrefix(TWCoinTypeDigitalGold));
-    ASSERT_EQ(0x0, TWCoinTypeStaticPrefix(TWCoinTypeDigitalGold));
-    assertStringsEqual(symbol, "DGLD");
-    assertStringsEqual(txUrl, "https://explorer.dgld.ch/tx/68e203d1837aad907f4c09b22835e78304a7ae5c4268d0c2487958e3a1858b6e");
-    assertStringsEqual(accUrl, "https://explorer.dgld.ch/address/g3X4Jwf9WLuBqET7tr2bCkDX3A2FGBrUm8");
-    assertStringsEqual(id, "dgld");
-    assertStringsEqual(name, "DigitalGold");
+    ASSERT_EQ(std::string(TWStringUTF8Bytes(symbol.get())), std::string("DGLD"));
+    ASSERT_EQ(std::string(TWStringUTF8Bytes(txUrl.get())), std::string("https://explorer.dgld.ch/tx/68e203d1837aad907f4c09b22835e78304a7ae5c4268d0c2487958e3a1858b6e"));
+    ASSERT_EQ(std::string(TWStringUTF8Bytes(accUrl.get())), std::string("https://explorer.dgld.ch/address/g3X4Jwf9WLuBqET7tr2bCkDX3A2FGBrUm8"));
+    ASSERT_EQ(std::string(TWStringUTF8Bytes(id.get())), std::string("dgld"));
+    ASSERT_EQ(std::string(TWStringUTF8Bytes(name.get())), std::string("DigitalGold"));
 }
