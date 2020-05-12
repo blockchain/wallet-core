@@ -44,7 +44,7 @@ TEST(DigitalGoldSigner, SignP2PKH) {
     auto scriptSigHash = Hash::ripemd(Hash::sha256(scriptSig.bytes));
     EXPECT_EQ(hex(scriptSigHash.begin(), scriptSigHash.end()), "82472cab708d49bb1e80fae459d6ae0fa34a7bde");
     Data pubKeyHashExtracted;
-    redeemScript.matchPayToPubkeyHash(pubKeyHashExtracted);
+    redeemScript.matchPayToPublicKeyHash(pubKeyHashExtracted);
     EXPECT_EQ(hex(pubKeyHashExtracted.begin(), pubKeyHashExtracted.end()), hex(publicKeyHash.begin(), publicKeyHash.end()));
     EXPECT_EQ(hex(redeemScriptHash.begin(), redeemScriptHash.end()), hex(scriptSigHash.begin(), scriptSigHash.end()));
 

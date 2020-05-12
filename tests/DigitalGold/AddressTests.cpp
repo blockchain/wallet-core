@@ -75,7 +75,7 @@ TEST(DigitalGoldAddress, ScriptTest) {
     ASSERT_EQ(script1a.bytes.size(), 25);
     ASSERT_EQ(hex(script1a.bytes.begin(), script1a.bytes.end()), "76a9143828ccf7696ce8e8c16a397b103f0a4f3b876bf488ac");
     auto hash1a = Data();
-    script1a.matchPayToPubkeyHash(hash1a);
+    script1a.matchPayToPublicKeyHash(hash1a);
     ASSERT_EQ(hash1a.size(), 20);
     ASSERT_EQ(hex(hash1a.begin(), hash1a.end()), "3828ccf7696ce8e8c16a397b103f0a4f3b876bf4");
 
@@ -99,7 +99,7 @@ TEST(DigitalGoldAddress, ScriptTest) {
     ASSERT_EQ(script2a.bytes.size(), 25);
     ASSERT_EQ(hex(script2a.bytes.begin(), script2a.bytes.end()), "76a9142f8a97924776e36fafaae12e41cf2b0f7d24597c88ac");
     auto hash2a = Data();
-    script2a.matchPayToPubkeyHash(hash2a);
+    script2a.matchPayToPublicKeyHash(hash2a);
     ASSERT_EQ(hash2a.size(), 20);
     ASSERT_EQ(hex(hash2a.begin(), hash2a.end()), "2f8a97924776e36fafaae12e41cf2b0f7d24597c");
 
