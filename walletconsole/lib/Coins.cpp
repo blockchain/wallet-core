@@ -18,6 +18,7 @@
 #include <iostream>
 #include <vector>
 #include <cassert>
+#include <memory>
 
 #define WRAPS(x) std::shared_ptr<TWString>(x, TWStringDelete)
 

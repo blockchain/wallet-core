@@ -8,6 +8,7 @@
 #include "Data.h"
 #include <TrezorCrypto/aes.h>
 #include <cassert>
+#include <cstring>
 
 namespace TW::Encrypt {
 

@@ -26,7 +26,7 @@ tar xzf release-$GTEST_VERSION.tar.gz
 
 # Build gtest
 cd googletest-release-$GTEST_VERSION
-cmake -DCMAKE_INSTALL_PREFIX:PATH=$PREFIX -H.
+cmake -DCMAKE_INSTALL_PREFIX:PATH=$PREFIX .
 make
 make install
 

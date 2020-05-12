@@ -1380,5 +1380,41 @@
             "clientPublic": "https://api.elrond.com",
             "clientDocs": "https://docs.elrond.com"
         }
+    },
+    {
+        "id": "dgld",
+        "name": "DigitalGold",
+        "symbol": "DGLD",
+        "decimals": 8,
+        "blockchain": "Bitcoin",
+        "derivationPath": "m/44'/452'/0'/0/0",
+        "curve": "secp256k1",
+        "publicKeyType": "secp256k1",
+        "p2pkhPrefix": 38,
+        "p2shPrefix": 97,
+        "hrp": "bc",
+        "publicKeyHasher": "sha256ripemd",
+        "base58Hasher": "sha256d",
+        "xpub": "zpub",
+        "xprv": "zprv",
+        "explorer": {
+            "url": "https://explorer.dgld.ch",
+            "txPath": "/tx/",
+            "accountPath": "/address/",
+            "sampleTx": "68e203d1837aad907f4c09b22835e78304a7ae5c4268d0c2487958e3a1858b6e",
+            "sampleAccount": "g3X4Jwf9WLuBqET7tr2bCkDX3A2FGBrUm8"
+        },
+        "info": {
+            "url": "https://dgld.ch/",
+            "client": "https://github.com/goldtokensa/ocean-wallet/releases",
+            "clientPublic": "",
+            "clientDocs": "https://github.com/goldtokensa/ocean-wallet/releases"
+        }
     }
 ]
+
+
+
+
+
+

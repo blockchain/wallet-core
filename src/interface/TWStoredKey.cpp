@@ -14,6 +14,7 @@
 #include <stdexcept>
 #include <cassert>
 
+
 using namespace TW::Keystore;
 
 struct TWStoredKey* _Nullable TWStoredKeyLoad(TWString* _Nonnull path) {

@@ -8,6 +8,7 @@
 #include "../Base58.h"
 #include "../Hash.h"
 #include "../HexCoding.h"
+#include <cstring>
 
 using namespace TW::Nebulas;
 
