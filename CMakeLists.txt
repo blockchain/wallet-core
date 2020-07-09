@@ -60,6 +60,8 @@ else()
         src/Algorand/*.h 
         src/Generated/*.cpp
         src/Base32.h
+        src/Base64.cpp
+        src/Base64.h
         src/BinaryCoding.cpp
         src/BinaryCoding.h
         src/Coin.cpp
