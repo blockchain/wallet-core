@@ -38,8 +38,6 @@ find_host_package(Boost REQUIRED)
 include(ExternalProject)
 
 # Dependencies
-include(cmake/Protobuf.cmake)
-
 option(CODE_COVERAGE "Enable coverage reporting" OFF)
 if(CODE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -fprofile-arcs -ftest-coverage")
@@ -50,16 +48,42 @@ endif()
 if(${ANDROID})
     message("Configuring for JNI")
     file(GLOB_RECURSE sources src/*.c src/*.cc src/*.cpp src/*.h jni/cpp/*.c jni/cpp/*.cpp jni/cpp/*.h jni/cpp/*.c)
-    add_library(TrustWalletCore SHARED ${sources} ${PROTO_SRCS} ${PROTO_HDRS})
+    add_library(TrustWalletCore SHARED ${sources})
 
     find_library(log-lib log)
-    target_link_libraries(TrustWalletCore PRIVATE TrezorCrypto protobuf ${log-lib} Boost::boost)
+    target_link_libraries(TrustWalletCore PRIVATE TrezorCrypto ${log-lib} Boost::boost)
 else()
     message("Configuring standalone")
-    file(GLOB_RECURSE sources src/*.c src/*.cc src/*.cpp src/*.h)
-    add_library(TrustWalletCore ${sources} ${PROTO_SRCS} ${PROTO_HDRS})
+    
+    file(GLOB sources 
+        src/Algorand/*.cpp
+        src/Algorand/*.h 
+        src/Generated/*.cpp
+        src/Base32.h
+        src/Base64.cpp
+        src/Base64.h
+        src/BinaryCoding.cpp
+        src/BinaryCoding.h
+        src/Coin.cpp
+        src/Coin.h
+        src/CoinEntry.h
+        src/Data.cpp
+        src/Data.h
+        src/DerivationPath.cpp
+        src/DerivationPath.h
+        src/Hash.cpp
+        src/Hash.h
+        src/HexCoding.h
+        src/PrivateKey.cpp
+        src/PrivateKey.h
+        src/PublicKey.cpp
+        src/PublicKey.h
+        src/uint256.h
+        src/XXHash64.h
+    )
+    add_library(TrustWalletCore ${sources})
 
-    target_link_libraries(TrustWalletCore PRIVATE TrezorCrypto protobuf Boost::boost)
+    target_link_libraries(TrustWalletCore PRIVATE TrezorCrypto Boost::boost)
 endif()
 target_compile_options(TrustWalletCore PRIVATE "-Wall")
 

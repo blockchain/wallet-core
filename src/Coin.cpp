@@ -14,44 +14,7 @@
 #include <set>
 
 // Includes for entry points for coin implementations
-#include "Aeternity/Entry.h"
-#include "Aion/Entry.h"
 #include "Algorand/Entry.h"
-#include "Bitcoin/Entry.h"
-#include "Binance/Entry.h"
-#include "Cardano/Entry.h"
-#include "Cosmos/Entry.h"
-#include "Decred/Entry.h"
-#include "EOS/Entry.h"
-#include "Ethereum/Entry.h"
-#include "Filecoin/Entry.h"
-#include "FIO/Entry.h"
-#include "Groestlcoin/Entry.h"
-#include "Harmony/Entry.h"
-#include "Icon/Entry.h"
-#include "IoTeX/Entry.h"
-#include "Kusama/Entry.h"
-#include "Nano/Entry.h"
-#include "NEAR/Entry.h"
-#include "Nebulas/Entry.h"
-#include "NEO/Entry.h"
-#include "Nimiq/Entry.h"
-#include "NULS/Entry.h"
-#include "Ontology/Entry.h"
-#include "Polkadot/Entry.h"
-#include "Ripple/Entry.h"
-#include "Solana/Entry.h"
-#include "Stellar/Entry.h"
-#include "Tezos/Entry.h"
-#include "Theta/Entry.h"
-#include "TON/Entry.h"
-#include "Tron/Entry.h"
-#include "VeChain/Entry.h"
-#include "Wanchain/Entry.h"
-#include "Waves/Entry.h"
-#include "Zcash/Entry.h"
-#include "Zilliqa/Entry.h"
-#include "Elrond/Entry.h"
 // end_of_coin_includes_marker_do_not_modify
 
 using namespace TW;
@@ -64,44 +27,7 @@ set<TWCoinType> coinTypes = {};
 
 void setupDispatchers() {
     std::vector<CoinEntry*> dispatchers = {
-        new Aeternity::Entry(),
-        new Aion::Entry(),
-        new Algorand::Entry(),
-        new Binance::Entry(),
-        new Bitcoin::Entry(),
-        new Cardano::Entry(),
-        new Cosmos::Entry(),
-        new EOS::Entry(),
-        new Ethereum::Entry(),
-        new Decred::Entry(),
-        new Filecoin::Entry(),
-        new FIO::Entry(),
-        new Groestlcoin::Entry(),
-        new Harmony::Entry(),
-        new Icon::Entry(),
-        new IoTeX::Entry(),
-        new Kusama::Entry(),
-        new Nano::Entry(),
-        new NEAR::Entry(),
-        new Nebulas::Entry(),
-        new NEO::Entry(),
-        new Nimiq::Entry(),
-        new NULS::Entry(),
-        new Ontology::Entry(),
-        new Polkadot::Entry(),
-        new Ripple::Entry(),
-        new Solana::Entry(),
-        new Stellar::Entry(),
-        new Tezos::Entry(),
-        new Theta::Entry(),
-        new TON::Entry(),
-        new Tron::Entry(),
-        new VeChain::Entry(),
-        new Wanchain::Entry(),
-        new Waves::Entry(),
-        new Zcash::Entry(),
-        new Zilliqa::Entry(),
-        new Elrond::Entry(),
+        new Algorand::Entry()
     }; // end_of_coin_entries_marker_do_not_modify
 
     dispatchMap.clear();
