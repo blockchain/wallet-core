@@ -8,7 +8,6 @@
 
 #include "Address.h"
 #include "../Data.h"
-#include "../proto/Algorand.pb.h"
 
 namespace TW::Algorand {
 

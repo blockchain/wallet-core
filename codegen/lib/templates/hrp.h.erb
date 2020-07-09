@@ -17,10 +17,7 @@ TW_EXTERN_C_BEGIN
 /// - SeeAlso: https://github.com/satoshilabs/slips/blob/master/slip-0173.md
 TW_EXPORT_ENUM()
 enum TWHRP {
-    TWHRPUnknown     /* "" */,
-<% coins.select{ |coin| coin.has_key?('hrp') }.each do |coin| -%>
-    TWHRP<%= format_name(coin['name']) %>     /* "<%= coin['hrp'] %>" */,
-<% end -%>
+    TWHRPUnknown     /* "" */
 };
 
 <% coins.select{ |coin| coin.has_key?('hrp') }.each do |coin| -%>

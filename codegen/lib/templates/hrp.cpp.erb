@@ -12,21 +12,9 @@
 #include <cstring>
 
 const char* stringForHRP(enum TWHRP hrp) {
-    switch (hrp) {
-<% coins.select{ |coin| coin.has_key?('hrp') }.each do |coin| -%>
-    case TWHRP<%= format_name(coin['name']) %>:
-        return HRP_<%= coin['id'].upcase %>;
-<% end -%>
-    default: return nullptr;
-    }
+    return nullptr;
 }
 
 enum TWHRP hrpForString(const char *_Nonnull string) {
-<% coins.select{ |coin| coin.has_key?('hrp') }.each_with_index do |coin, index| -%>
-    <% if index >= 1 -%>} else <% end -%>if (std::strcmp(string, HRP_<%= coin['id'].upcase %>) == 0) {
-        return TWHRP<%= format_name(coin['name']) %>;
-<% end -%>
-    } else {
-        return TWHRPUnknown;
-    }
+    return TWHRPUnknown;
 }
