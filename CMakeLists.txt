@@ -51,20 +51,20 @@ include(ExternalProject)
 # Dependencies
 include(cmake/Protobuf.cmake)
 
-option(CODE_COVERAGE "Enable coverage reporting" OFF)
-if(CODE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -fprofile-arcs -ftest-coverage")
-    set(CMAKE_EXE_LINKER_FLAGS "-fprofile-arcs -ftest-coverage")
-endif()
-
 # Source files
 if(${ANDROID})
+
+    find_package(Java REQUIRED)
+    find_package(JNI REQUIRED)
+    include(UseJava)
+    include_directories(${PREFIX}/include ${JNI_INCLUDE_DIRS}  ${_classDir} ${_stubDir})
+
     message("Configuring for JNI")
     file(GLOB_RECURSE sources src/*.c src/*.cc src/*.cpp src/*.h jni/cpp/*.c jni/cpp/*.cpp jni/cpp/*.h jni/cpp/*.c)
-    add_library(TrustWalletCore SHARED ${sources} ${PROTO_SRCS} ${PROTO_HDRS})
+    add_library(TrustWalletCore MODULE ${sources} ${PROTO_SRCS} ${PROTO_HDRS})
 
-    find_library(log-lib log)
-    target_link_libraries(TrustWalletCore PRIVATE TrezorCrypto protobuf ${log-lib} Boost::boost)
+    #find_library(log-lib log)
+    target_link_libraries(TrustWalletCore TrezorCrypto protobuf ${JNI_INCLUDE_DIRS}  Boost::boost)
 else()
     message("Configuring standalone")
     file(GLOB_RECURSE sources src/*.c src/*.cc src/*.cpp src/*.h)
@@ -91,12 +91,6 @@ target_include_directories(TrustWalletCore
         ${CMAKE_CURRENT_SOURCE_DIR}/jni/cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/build/local/include
 )
-
-if(NOT ANDROID AND NOT IOS_PLATFORM AND NOT WASM)
-    add_subdirectory(tests)
-    add_subdirectory(walletconsole/lib)
-    add_subdirectory(walletconsole)
-endif()
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/swift/cpp.xcconfig.in ${CMAKE_CURRENT_SOURCE_DIR}/swift/cpp.xcconfig @ONLY)
 
